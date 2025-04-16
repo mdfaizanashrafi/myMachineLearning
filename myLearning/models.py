@@ -40,6 +40,17 @@ knn_model.fit(x_train,y_train)
 
 y_pred = knn_model.predict(x_test)
 
+#print(classification_report(y_test,y_pred))
+
+#NAIVE BAYES:
+
+from sklearn.naive_bayes import  GaussianNB
+
+ng_model = GaussianNB()
+nb_model = ng_model.fit(x_train,y_train)
+
+y_pred = nb_model.predict(x_test)
+
 print(classification_report(y_test,y_pred))
 
 

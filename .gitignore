@@ -1,0 +1,39 @@
+# Ignore Python-related files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+myenv/
+env/
+venv/
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore log and temporary files
+*.log
+*.tmp
+temp/
+
+# Ignore generated files (e.g., PDFs, DOCX)
+*.pdf
+*.docx
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore dependency directories
+node_modules/
+build/
+dist/
+
+# Ignore sensitive files
+.env.local
+.env.*
+credentials.json
