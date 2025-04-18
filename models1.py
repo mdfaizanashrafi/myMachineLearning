@@ -119,3 +119,29 @@ plt.ylabel("No. of Bike")
 plt.xlabel("Temp")
 plt.show()
 
+
+
+
+
+
+
+
+
+
+
+all_normalizer=tf.keras.layers.Normalization(input_shape=(6,1),axis=1)
+all_normalizer.adapt(x_train_all)
+
+nn_model = tf.keras.Sequential([
+    all_normalizer,
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(1)
+])
+nn_model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),loss='mean_squared_error')
+
+history = nn_model.fit(
+    x_train_all,y_train_all,
+    validation_data=(x_val_all,y_val_all),
+    verbose=0,epochs=100)
+
