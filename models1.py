@@ -119,14 +119,63 @@ plt.ylabel("No. of Bike")
 plt.xlabel("Temp")
 plt.show()
 
+temp_normalizer = tf.keras.layers.Normalization(input_shape=(1,), axis=None)
+temp_normalizer.adapt(x_train_temp.reshape(-1))
+
+temp_nn_model= tf.keras.Sequential([
+    temp_normalizer, tf.keras.layers.Dense(1)
+])
+
+temp_nn_model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),loss='mean_squared_error')
+
+history= temp_nn_model.fit(
+    x_train_temp.reshape(-1),y_train_temp,
+    verbose=0,
+    epochs=1000,
+    validation_data=(x_val_temp,y_val_temp)
+)
+
+plot_loss(history)
+
+plt.scatter(x_train_temp,y_train_temp,label='Data',color='blue')
+x= tf.linspace(-20,40,100)
+plt.plot(x,temp_nn_model.predict(np.array(x).reshape(-1,1)), label='Fit',color='Red',linewidth=3)
+plt.legend()
+plt.title("Bikes vs Temp")
+plt.ylabel("No. of Bike")
+plt.xlabel("Temp")
+plt.show()
 
 
+temp_normalizer=tf.keras.layers.Normalization(input_shape=(1,),axis=None)
+temp_normalizer.adapt(x_train_temp.reshape(-1))
 
+nn_model = tf.keras.Sequential([
+    temp_normalizer,
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(32,activation='relu'),
+    tf.keras.layers.Dense(1,activation='relu')
+])
+nn_model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),loss='mean_squared_error')
 
+history= nn_model.fit(
+    x_train_temp,y_train_temp,
+    validation_data=(x_val_temp,y_val_temp),
+    verbose=0,
+    epochs=100
+)
 
+plot_loss(history)
 
-
-
+plt.scatter(x_train_temp,y_train_temp,label="Data",color="blue")
+x=tf.linspace(-20,40,100)
+plt.plot(x,nn_model.predict(np.array(x).reshape(-1,1)),label="Fit",color="red",linewidth=3)
+plt.legend()
+plt.title("Bikes vs Temp")
+plt.ylabel("Number of bikes")
+plt.xlabel("Temp")
+plt.show()
 
 
 all_normalizer=tf.keras.layers.Normalization(input_shape=(6,1),axis=1)
